@@ -10,12 +10,7 @@
     * {
       box-sizing: border-box;
     }
-.circle {
-  width: 100px;      /* عرض العنصر */
-  height: 100px;     /* ارتفاع العنصر */
-  background-color: #4CAF50;  /* لون الخلفية */
-  border-radius: 50%;         /* لجعل الشكل دائري */
-}
+
     body {
       font-family: 'Cairo', sans-serif;
       background: linear-gradient(135deg, #004aad 0%, #0057d9 100%);
@@ -30,8 +25,22 @@
     header {
       background-color: #012eb5;
       padding: 20px 10px;
-      text-align: center;
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    header .header-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    header .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 2px solid #aaddff;
     }
 
     header h1 {
@@ -108,7 +117,6 @@
       color: #e0e7ff;
     }
 
-    /* تبويبات التخصصات */
     .specialty-tabs {
       display: flex;
       flex-wrap: wrap;
@@ -146,7 +154,6 @@
       display: block;
     }
 
-    /* بطاقات الأطباء */
     .doctor-card {
       background: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
@@ -158,6 +165,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      cursor: pointer; /* مؤشر اليد عند المرور */
     }
 
     .doctor-card:hover {
@@ -185,7 +193,6 @@
       line-height: 1.4;
     }
 
-    /* اجعل الأيام والساعة في سطرين */
     .doctor-schedule span {
       display: block;
     }
@@ -195,7 +202,6 @@
       to {opacity: 1;}
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
       main {
         margin: 20px;
@@ -235,7 +241,10 @@
 </head>
 <body>
   <header>
-    <h1>مركز الخليل الطبي</h1>
+    <div class="header-container">
+      <img src="صيدلية.png" alt="شعار المركز" class="logo"/>
+      <h1 style="text-align: center;font-size: 300%">مركز الخليل الطبي</h1>
+    </div>
   </header>
 
   <nav>
@@ -283,14 +292,14 @@
       <h2>التخصصات المتوفرة</h2>
 
       <div class="specialty-tabs">
-        <button class="specialty-btn active" data-specialty="neurology">المخ والأعصاب</button>
+        <button class="specialty-btn" data-specialty="neurology">المخ والأعصاب</button>
         <button class="specialty-btn" data-specialty="dermatology">الجلدية والتناسلية</button>
         <button class="specialty-btn" data-specialty="ent">الأنف والأذن</button>
         <button class="specialty-btn" data-specialty="skil">عظام</button>
       </div>
       
       <div id="neurology" class="specialty-content active">
-        <div class="doctor-card">
+        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ مصطفى أبو الليل - تخصص المخ والأعصاب">
           <div class="doctor-name">د/ مصطفى أبو الليل</div>
           <div class="doctor-specialty">استشاري جراحة المخ والأعصاب والعمود الفقري</div>
           <div class="doctor-schedule">
@@ -301,9 +310,9 @@
       </div>
 
        <div id="skil" class="specialty-content">
-        <div class="doctor-card">
-          <div class="doctor-name">د/ محمد عماد الدين</div>
-          <div class="doctor-specialty">طبيب الجلدية بمستشفى الحوض المرصود</div>
+        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ يوسف هشام - تخصص العظام و المفاصل">
+          <div class="doctor-name">د/ يوسف هشام</div>
+          <div class="doctor-specialty">طبيب العظام و المفاصل</div>
           <div class="doctor-schedule">
             <span>الأحد</span>
             <span>الساعة 7 مساءً</span>
@@ -311,19 +320,8 @@
         </div>
        </div>
 
-      <div id="skil" class="specialty-content">
-        <div class="doctor-card">
-          <div class="doctor-name">د/ محمد عماد الدين</div>
-          <div class="doctor-specialty">طبيب الجلدية بمستشفى الحوض المرصود</div>
-          <div class="doctor-schedule">
-            <span>الأحد</span>
-            <span>الساعة 7 مساءً</span>
-          </div>
-        </div>
-      </div> 
-
       <div id="dermatology" class="specialty-content">
-        <div class="doctor-card">
+        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ محمد عماد الدين - تخصص الجلدية">
           <div class="doctor-name">د/ محمد عماد الدين</div>
           <div class="doctor-specialty">طبيب الجلدية بمستشفى الحوض المرصود</div>
           <div class="doctor-schedule">
@@ -334,7 +332,7 @@
       </div>
 
       <div id="ent" class="specialty-content">
-        <div class="doctor-card">
+        <div class="doctor-card" data-whatsapp-message="أرغب في حجز موعد مع د/ معتصم طُبال - تخصص الأنف والأذن والحنجرة">
           <div class="doctor-name">د/ معتصم طُبال</div>
           <div class="doctor-specialty">طبيب الأنف والأذن والحنجرة بمستشفى الطلبة جامعة القاهرة</div>
           <div class="doctor-schedule">
@@ -391,6 +389,22 @@
         });
       });
     });
+
+      // فتح واتساب عند الضغط على بطاقة الدكتور
+    const whatsappNumber = "201040538124"; // استبدل برقم الواتساب الصحيح بصيغة دولية بدون + أو 00
+
+    const doctorCards = document.querySelectorAll('.doctor-card');
+    doctorCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const message = card.getAttribute('data-whatsapp-message');
+        if (message) {
+          const encodedMessage = encodeURIComponent(message);
+          const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+          window.open(whatsappURL, '_blank');
+        }
+      });
+    });
+
   </script>
 </body>
 </html>
